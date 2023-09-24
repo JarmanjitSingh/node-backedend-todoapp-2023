@@ -42,12 +42,12 @@ export const login = async (req, res, next) => {
     const userExist = await user.findOne({ email }).select("+password"); //because select false in schema
 
     if (!userExist)
-      return next(new ErrorHandler("Account not found with this email.", 404));
+      return next(new ErrorHandler("Account not found with this email.", 401));
 
     const passwordMatched = await compare(password, userExist.password);
 
     if (!passwordMatched)
-      return next(new ErrorHandler("Invalid email or password.", 404));
+      return next(new ErrorHandler("Invalid email or password.", 401));
 
     cookieAndTokenfunction(userExist, res, "login successfully", 200);
   } catch (error) {
