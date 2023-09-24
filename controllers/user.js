@@ -20,16 +20,8 @@ export const register = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
-    if (userCreated) {
-      console.log(userCreated._id);
-
       cookieAndTokenfunction(userCreated, res, "Registered successfully", 201);
-    } else {
-      res.json({
-        success: false,
-        message: "something went wrong while creating the new User.",
-      });
-    }
+  
   } catch (error) {
     next(error);
   }
